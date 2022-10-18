@@ -1,24 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useContext,useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import Auth from './pages/Auth';
+import Home from './pages/Home';
+import { MyContext } from "./components/context";
+
+
 
 function App() {
+
+  const {cuser,setCuser}= useContext(MyContext);
+  
+
+
+
+
+useEffect(()=> {
+  const clientUser=JSON.parse(localStorage.getItem('cuser'));
+  setCuser(clientUser)
+},[cuser]);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      
+      <Routes>
+      <Route path="/home" element={<Home/>}/>
+        <Route path="/" element={<Auth/>} />
+         
+      </Routes>
+
     </div>
+
   );
 }
 
